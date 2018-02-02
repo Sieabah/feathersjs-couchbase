@@ -1,8 +1,8 @@
 # feathersjs-couchbase
 
 [![Build Status](https://travis-ci.org/https://github.com/Sieabah/feathers-couchbase.png?branch=master)](https://travis-ci.org/https://github.com/Sieabah/feathers-couchbase)
-[![Code Climate](https://codeclimate.com/github/https://github.com/Sieabah/feathers-couchbase/badges/gpa.svg)](https://codeclimate.com/github/https://github.com/Sieabah/feathers-couchbase)
-[![Test Coverage](https://codeclimate.com/github/https://github.com/Sieabah/feathers-couchbase/badges/coverage.svg)](https://codeclimate.com/github/https://github.com/Sieabah/feathers-couchbase/coverage)
+[![Maintainability](https://api.codeclimate.com/v1/badges/44622f478d094121519b/maintainability)](https://codeclimate.com/github/Sieabah/feathers-couchbase/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/44622f478d094121519b/test_coverage)](https://codeclimate.com/github/Sieabah/feathers-couchbase/test_coverage)
 [![Dependency Status](https://img.shields.io/david/https://github.com/Sieabah/feathers-couchbase.svg?style=flat-square)](https://david-dm.org/https://github.com/Sieabah/feathers-couchbase)
 [![Download Status](https://img.shields.io/npm/dm/feathersjs-couchbase.svg?style=flat-square)](https://www.npmjs.com/package/feathersjs-couchbase)
 
