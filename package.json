@@ -46,7 +46,12 @@
   "directories": {
     "lib": "lib"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@feathersjs/errors": "^3.3.0",
+    "bluebird": "^3.5.1",
+    "debug": "^3.1.0",
+    "uuid": "^3.2.1"
+  },
   "devDependencies": {
     "chai": "^3.5.0",
     "istanbul": "^1.1.0-alpha.1",
