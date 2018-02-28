@@ -1,10 +1,10 @@
 # feathersjs-couchbase
 
-[![Build Status](https://travis-ci.org/https://github.com/Sieabah/feathers-couchbase.png?branch=master)](https://travis-ci.org/https://github.com/Sieabah/feathers-couchbase)
+[![Build Status](https://travis-ci.org/Sieabah/feathers-couchbase.svg?branch=master)](https://travis-ci.org/Sieabah/feathers-couchbase)
 [![Maintainability](https://api.codeclimate.com/v1/badges/44622f478d094121519b/maintainability)](https://codeclimate.com/github/Sieabah/feathers-couchbase/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/44622f478d094121519b/test_coverage)](https://codeclimate.com/github/Sieabah/feathers-couchbase/test_coverage)
-[![Dependency Status](https://img.shields.io/david/https://github.com/Sieabah/feathers-couchbase.svg?style=flat-square)](https://david-dm.org/https://github.com/Sieabah/feathers-couchbase)
-[![Download Status](https://img.shields.io/npm/dm/feathersjs-couchbase.svg?style=flat-square)](https://www.npmjs.com/package/feathersjs-couchbase)
+[![Dependencies Status](https://david-dm.org/sieabah/feathers-couchbase/status.svg)](https://david-dm.org/sieabah/feathers-couchbase)
+[![Download Status](https://img.shields.io/npm/dm/@Sieabah/feathers-couchbase.svg?style=flat-square)](https://www.npmjs.com/package/@Sieabah/feathers-couchbase)
 
 > FeathersJS DB adapter for couchbase
 
@@ -20,7 +20,7 @@ Please refer to the [feathersjs-couchbase documentation](http://docs.feathersjs.
 
 ## Complete Example
 
-Here's an example of a Feathers server that uses `feathersjs-couchbase`. 
+Here's an example of a Feathers server that uses `feathersjs-couchbase`.
 
 ```js
 const feathers = require('feathers');

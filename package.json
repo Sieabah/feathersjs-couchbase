@@ -1,8 +1,8 @@
 {
-  "name": "feathersjs-couchbase",
+  "name": "feathers-couchbase",
   "description": "FeathersJS DB adapter for couchbase",
   "version": "0.0.0",
-  "homepage": "https://github.com/https://github.com/Sieabah/feathers-couchbase",
+  "homepage": "https://github.com/Sieabah/feathers-couchbase",
   "main": "lib/",
   "keywords": [
     "feathers",
@@ -11,16 +11,16 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git://github.com/https://github.com/Sieabah/feathers-couchbase.git"
+    "url": "git://github.com/Sieabah/feathers-couchbase.git"
   },
   "author": {
-    "name": "Feathers contributors",
-    "email": "hello@feathersjs.com",
-    "url": "https://feathersjs.com"
+    "name": "Christopher Sidell",
+    "email": "sieabah@gmail.com",
+    "url": "https://christophersidell.com"
   },
   "contributors": [],
   "bugs": {
-    "url": "https://github.com/https://github.com/Sieabah/feathers-couchbase/issues"
+    "url": "https://github.com/Sieabah/feathers-couchbase/issues"
   },
   "engines": {
     "node": ">= 6.0.0"
