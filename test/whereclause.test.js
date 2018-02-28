@@ -1,5 +1,7 @@
 'use strict';
 
+/* eslint no-unused-expressions: 0 */
+
 const { expect } = require('chai');
 const { QueryBuilder } = require('../lib');
 
@@ -27,6 +29,20 @@ describe('Couchbase QueryBuilder Where Clauses', () => {
     expect(query).to.include('WHERE');
     expect(query).to.include('IN');
     expect(values).to.include($query.roomId.$in);
+  });
+
+  it('Should represent null correctly', () => {
+    const $query = {
+      roomId: null
+    };
+
+    Query.interpret($query);
+
+    const { query } = Query.build();
+
+    expect(query).to.be.ok;
+    expect(query).to.include('WHERE');
+    expect(query).to.include('NULL');
   });
 
   it('Should understand $gt query', () => {

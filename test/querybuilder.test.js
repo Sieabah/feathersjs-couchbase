@@ -1,5 +1,7 @@
 'use strict';
 
+/* eslint no-unused-expressions: 0 */
+
 const { expect } = require('chai');
 const { QueryBuilder, QueryError } = require('../lib');
 
@@ -15,6 +17,15 @@ describe('Couchbase QueryBuilder', () => {
   it('Adds select query', () => {
     Query.select('*');
 
+    const { query } = Query.build();
+
+    expect(query).to.be.ok;
+    expect(query).to.be.a('string');
+    expect(query).to.include('SELECT');
+    expect(query).to.include('*');
+  });
+
+  it('Adds select query', () => {
     const { query } = Query.build();
 
     expect(query).to.be.ok;
@@ -52,9 +63,27 @@ describe('Couchbase QueryBuilder', () => {
     expect(query).to.include('`testbucket`.one');
   });
 
-  it('Should not bucket-scope wildcard', () => {
+  it('Should bucket-scope wildcard', () => {
     Query = new QueryBuilder('testbucket');
     Query.select('*');
+
+    const { query } = Query.build();
+
+    expect(query).to.be.ok;
+    expect(query).to.include('`testbucket`.*');
+  });
+
+  it('Should bucket-scope default wildcard', () => {
+    Query = new QueryBuilder('testbucket');
+
+    const { query } = Query.build();
+
+    expect(query).to.be.ok;
+    expect(query).to.include('`testbucket`.*');
+  });
+
+  it('Should apply bucket late from `from` statement', () => {
+    Query.from('testbucket');
 
     const { query } = Query.build();
 
@@ -120,6 +149,38 @@ describe('Couchbase QueryBuilder', () => {
     expect(query).to.include(1);
   });
 
+  it('Limit should not fail with numeric string', () => {
+    Query.limit('1');
+
+    const { query } = Query.build();
+
+    expect(query).to.include('SELECT');
+    expect(query).to.include('LIMIT');
+    expect(query).to.include(1);
+  });
+
+  it('Limit should fail with non-numeric string', () => {
+    Query.limit('foo');
+
+    expect(() => Query.build()).to.throw(QueryError);
+  });
+
+  it('Skip should not fail with numeric string', () => {
+    Query.skip('1');
+
+    const { query } = Query.build();
+
+    expect(query).to.include('SELECT');
+    expect(query).to.include('OFFSET');
+    expect(query).to.include(1);
+  });
+
+  it('Skip should fail with non-numeric string', () => {
+    Query.skip('foo');
+
+    expect(() => Query.build()).to.throw(QueryError);
+  });
+
   it('Should skip and limit', () => {
     Query.skip(5);
     Query.limit(5);
@@ -154,10 +215,21 @@ describe('Couchbase QueryBuilder', () => {
     expect(query).to.include('ASC');
   });
 
+  it('Should add sort on many traits', () => {
+    Query.sort(['age', 'name']);
+
+    const { query, values } = Query.build();
+
+    expect(query).to.include('ORDER BY');
+    expect(values).to.include('age');
+    expect(query).to.include('ASC');
+  });
+
   it('Should interpret sorting', () => {
     Query.interpret({
       $sort: {
-        age: 1
+        age: 1,
+        name: -1
       }
     });
 
@@ -179,5 +251,9 @@ describe('Couchbase QueryBuilder', () => {
 
     expect(query).to.be.ok;
     expect(query).to.include('DESC');
+  });
+
+  it('Should error when not asc or desc order', () => {
+    expect(() => Query.sort('age', 'upwards')).to.throw(QueryError);
   });
 });
