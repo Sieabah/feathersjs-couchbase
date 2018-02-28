@@ -54,6 +54,7 @@
     "@feathersjs/errors": "^3.3.0",
     "bluebird": "^3.5.1",
     "debug": "^3.1.0",
+    "ramda": "^0.25.0",
     "uuid": "^3.2.1"
   },
   "devDependencies": {

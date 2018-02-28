@@ -1,8 +1,7 @@
 'use strict';
 
-const path = require('path');
 const { expect } = require('chai');
-const { QueryBuilder, QueryError } = require('../lib');
+const { QueryBuilder } = require('../lib');
 
 describe('Couchbase QueryBuilder Where Clauses', () => {
   /**
@@ -39,7 +38,7 @@ describe('Couchbase QueryBuilder Where Clauses', () => {
 
     Query.interpret($query);
 
-    const { query, values } = Query.build();
+    const { query } = Query.build();
 
     expect(query).to.be.ok;
     expect(query).to.include('>');
@@ -54,7 +53,7 @@ describe('Couchbase QueryBuilder Where Clauses', () => {
 
     Query.interpret($query);
 
-    const { query, values } = Query.build();
+    const { query } = Query.build();
 
     expect(query).to.be.ok;
     expect(query).to.include('>=');
@@ -69,7 +68,7 @@ describe('Couchbase QueryBuilder Where Clauses', () => {
 
     Query.interpret($query);
 
-    const { query, values } = Query.build();
+    const { query } = Query.build();
 
     expect(query).to.be.ok;
     expect(query).to.include('<');
@@ -84,7 +83,7 @@ describe('Couchbase QueryBuilder Where Clauses', () => {
 
     Query.interpret($query);
 
-    const { query, values } = Query.build();
+    const { query } = Query.build();
 
     expect(query).to.be.ok;
     expect(query).to.include('<=');
@@ -131,7 +130,7 @@ describe('Couchbase QueryBuilder Where Clauses', () => {
 
     Query.interpret($query);
 
-    const { query, values } = Query.build();
+    const { query } = Query.build();
 
     expect(query).to.be.ok;
     expect(query).to.include('!=');

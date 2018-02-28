@@ -1,6 +1,5 @@
 'use strict';
 
-const path = require('path');
 const { expect } = require('chai');
 const { QueryBuilder, QueryError } = require('../lib');
 
@@ -16,7 +15,7 @@ describe('Couchbase QueryBuilder', () => {
   it('Adds select query', () => {
     Query.select('*');
 
-    const { query, values } = Query.build();
+    const { query } = Query.build();
 
     expect(query).to.be.ok;
     expect(query).to.be.a('string');
@@ -27,7 +26,7 @@ describe('Couchbase QueryBuilder', () => {
   it('Joins multiple selected fields', () => {
     Query.select('name', 'username');
 
-    const { query, values } = Query.build();
+    const { query } = Query.build();
 
     expect(query).to.be.ok;
     expect(query).to.not.include('*');
@@ -35,7 +34,7 @@ describe('Couchbase QueryBuilder', () => {
   });
 
   it('Should have default wildcard select', () => {
-    const { query, values } = Query.build();
+    const { query } = Query.build();
 
     expect(query).to.be.ok;
     expect(query).to.be.a('string');
@@ -47,7 +46,7 @@ describe('Couchbase QueryBuilder', () => {
     Query = new QueryBuilder('testbucket');
     Query.select('one', 'two');
 
-    const { query, values } = Query.build();
+    const { query } = Query.build();
 
     expect(query).to.be.ok;
     expect(query).to.include('`testbucket`.one');
@@ -57,7 +56,7 @@ describe('Couchbase QueryBuilder', () => {
     Query = new QueryBuilder('testbucket');
     Query.select('*');
 
-    const { query, values } = Query.build();
+    const { query } = Query.build();
 
     expect(query).to.be.ok;
     expect(query).to.include('`testbucket`.*');
@@ -67,7 +66,7 @@ describe('Couchbase QueryBuilder', () => {
     Query.select('one');
     Query.select('two');
 
-    const { query, values } = Query.build();
+    const { query } = Query.build();
 
     expect(query).to.include('two');
     expect(query).to.not.include('one');
@@ -80,7 +79,7 @@ describe('Couchbase QueryBuilder', () => {
   it('Should add skip parameter', () => {
     Query.skip(1);
 
-    const { query, values } = Query.build();
+    const { query } = Query.build();
 
     expect(query).to.include('SELECT');
     expect(query).to.include('OFFSET');
@@ -92,7 +91,7 @@ describe('Couchbase QueryBuilder', () => {
       $skip: 1
     });
 
-    const { query, values } = Query.build();
+    const { query } = Query.build();
     expect(query).to.include('OFFSET');
     expect(query).to.include(1);
   });
@@ -104,7 +103,7 @@ describe('Couchbase QueryBuilder', () => {
   it('Should add limit parameter', () => {
     Query.limit(1);
 
-    const { query, values } = Query.build();
+    const { query } = Query.build();
 
     expect(query).to.include('SELECT');
     expect(query).to.include('LIMIT');
@@ -116,7 +115,7 @@ describe('Couchbase QueryBuilder', () => {
       $limit: 1
     });
 
-    const { query, values } = Query.build();
+    const { query } = Query.build();
     expect(query).to.include('LIMIT');
     expect(query).to.include(1);
   });
@@ -125,7 +124,7 @@ describe('Couchbase QueryBuilder', () => {
     Query.skip(5);
     Query.limit(5);
 
-    const { query, values } = Query.build();
+    const { query } = Query.build();
 
     expect(query).to.include('LIMIT');
     expect(query).to.include('OFFSET');
@@ -138,7 +137,7 @@ describe('Couchbase QueryBuilder', () => {
       $skip: 1
     });
 
-    const { query, values } = Query.build();
+    const { query } = Query.build();
 
     expect(query).to.include('LIMIT');
     expect(query).to.include('OFFSET');
@@ -176,7 +175,7 @@ describe('Couchbase QueryBuilder', () => {
   it('Should have desc order', () => {
     Query.sort('age', 'desc');
 
-    const { query, values } = Query.build();
+    const { query } = Query.build();
 
     expect(query).to.be.ok;
     expect(query).to.include('DESC');
