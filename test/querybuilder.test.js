@@ -2,7 +2,7 @@
 
 const path = require('path');
 const { expect } = require('chai');
-const { QueryBuilder, QueryError } = require(path.join(path.dirname(path.dirname(__dirname)), 'src', 'services', 'querybuilder'));
+const { QueryBuilder, QueryError } = require('../lib');
 
 describe('Couchbase QueryBuilder', () => {
   /**
