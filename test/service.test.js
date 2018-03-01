@@ -43,7 +43,6 @@ describe('Couchbase Adapter', function () {
 
   it('Should error if parameters are missing', () => {
     const params = {
-      couchbase: couchbase,
       bucket: 'testbucket',
       connection: Bucket,
       name: 'users'
