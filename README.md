@@ -65,9 +65,10 @@ The library implements the full [feathersjs common api](https://docs.feathersjs.
 - Does not accept **$or** statements. (Planned feature)
 - Subqueries are not supported
 - Only tested with feathers v3
+- $selects on Service.find calls pulls all data and removes sections locally
 
 ## License
 
-Copyright (c) 2017
+Copyright (c) 2018
 
 Licensed under the [MIT license](LICENSE).
