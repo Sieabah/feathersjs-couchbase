@@ -64,8 +64,7 @@ The library implements the full [feathersjs common api](https://docs.feathersjs.
 
 - Does not accept **$or** statements. (Planned feature)
 - Subqueries are not supported
-
-##
+- Only tested with feathers v3
 
 ## License
 
