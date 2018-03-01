@@ -17,18 +17,10 @@ describe('Couchbase Adapter (find)', function () {
   const Bucket = Cluster.openBucket(bucketName, bucketName);
 
   const responseQueue = [];
-  const _originalQuery = Bucket.queryAsync;
+  Bucket.queryAsync = () => new Promise((resolve, reject) => {
+    if (responseQueue.length > 0) { return void resolve(responseQueue.pop()); }
 
-  before(() => {
-    Bucket.queryAsync = () => new Promise((resolve, reject) => {
-      if (responseQueue.length > 0) { return void resolve(responseQueue.pop()); }
-
-      reject(new Error('TEST-ERROR :: No data in queue'));
-    });
-  });
-
-  after(() => {
-    Bucket.queryAsync = _originalQuery;
+    reject(new Error('TEST-ERROR :: No data in queue'));
   });
 
   function addData (data) {
@@ -85,7 +77,8 @@ describe('Couchbase Adapter (find)', function () {
 
     return Service.find({
       query: {
-        foo: 'bar'
+        foo: 'bar',
+        $limit: 10
       }
     })
       .then((res) => {
