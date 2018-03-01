@@ -8,7 +8,7 @@ const expect = require('chai').expect;
 const Promise = require('bluebird');
 // const { BadRequest, NotFound } = require('@feathersjs/errors');
 const couchbase = require('couchbase-promises').Mock;
-const CouchService = require('../lib');
+const { CouchService } = require('../lib');
 const R = require('ramda');
 
 describe('Couchbase Adapter (find)', function () {

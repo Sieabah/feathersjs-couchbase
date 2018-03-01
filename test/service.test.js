@@ -8,7 +8,8 @@ const sinon = require('sinon');
 // const Promise = require('bluebird');
 const { BadRequest, NotFound } = require('@feathersjs/errors');
 const couchbase = require('couchbase-promises').Mock;
-const CouchService = require('../lib');
+const createCouchService = require('../lib');
+const { CouchService } = createCouchService;
 
 describe('Couchbase Adapter', function () {
   const bucketName = 'testbucket';
@@ -19,15 +20,21 @@ describe('Couchbase Adapter', function () {
    * @type {CouchService | null}
    */
   let Service = null;
-
+  const ServiceConfig = {
+    couchbase: couchbase,
+    bucket: 'testbucket',
+    connection: Bucket,
+    name: 'users',
+    id: 'uuid'
+  };
   beforeEach(() => {
-    Service = new CouchService({
-      couchbase: couchbase,
-      bucket: 'testbucket',
-      connection: Bucket,
-      name: 'users',
-      id: 'uuid'
-    });
+    Service = new CouchService(ServiceConfig);
+  });
+
+  it('Should create service from default import', () => {
+    const service = createCouchService(ServiceConfig);
+
+    expect(service).to.be.instanceof(CouchService);
   });
 
   it('Should setup', () => {
