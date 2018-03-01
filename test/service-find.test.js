@@ -8,7 +8,7 @@ const expect = require('chai').expect;
 const Promise = require('bluebird');
 // const { BadRequest, NotFound } = require('@feathersjs/errors');
 const couchbase = require('couchbase-promises').Mock;
-const { CouchService } = require('../lib');
+const { CouchService, QueryConsistency } = require('../lib');
 const R = require('ramda');
 
 describe('Couchbase Adapter (find)', function () {
@@ -101,6 +101,57 @@ describe('Couchbase Adapter (find)', function () {
         expect(res).to.be.ok;
         expect(res).to.have.length(results.length);
         expect(res[0]).to.deep.equal({ foo: result.foo });
+      });
+  });
+
+  it('Should allow to specify consistency NONE', () => {
+    const obj = {
+      foo: 'bar'
+    };
+    addData([obj]);
+
+    return Service.find({
+      query: {
+        foo: 'bar',
+        $consistency: QueryConsistency.NOT_BOUNDED
+      }
+    })
+      .then((res) => {
+        expect(res).to.be.ok;
+      });
+  });
+
+  it('Should allow to specify consistency LOCAL', () => {
+    const obj = {
+      foo: 'bar'
+    };
+    addData([obj]);
+
+    return Service.find({
+      query: {
+        foo: 'bar',
+        $consistency: QueryConsistency.REQUEST_PLUS
+      }
+    })
+      .then((res) => {
+        expect(res).to.be.ok;
+      });
+  });
+
+  it('Should allow to specify consistency GLOBAL', () => {
+    const obj = {
+      foo: 'bar'
+    };
+    addData([obj]);
+
+    return Service.find({
+      query: {
+        foo: 'bar',
+        $consistency: QueryConsistency.STATEMENT_PLUS
+      }
+    })
+      .then((res) => {
+        expect(res).to.be.ok;
       });
   });
 });

@@ -57,8 +57,57 @@ const { CouchService } = require('feathersjs-couchbase');
 new CouchService(config)
 ```
 
+### Recommended Service Creation
+
+```
+'use strict';
+
+const { CouchService } = require('feathersjs-couchbase');
+
+class Users extends CouchService {
+  constructor(opts){
+    super(opts);
+  }
+
+  create(data, params){
+    return super.create(
+      Object.assign({ // Your default data here
+        auth0Id: null,
+        role: 'default',
+      }, data) // Data passed in
+    , params);
+  }
+}
+
+module.exports = Rooms;
+```
+
+### API
+
 The library implements the full [feathersjs common api](https://docs.feathersjs.com/api/databases/common.html) and 
-[Query api](https://docs.feathersjs.com/api/databases/querying.html), see limitations for exceptions
+[Query api](https://docs.feathersjs.com/api/databases/querying.html), see limitations for exceptions.
+
+> **Finds will not work until an index is built over the bucket you're trying to query**
+
+#### Additional API
+
+##### $consistency (_only_ valid on Service.find)
+N1QL Consistency special parameter. [Consistency Documentation](https://developer.couchbase.com/documentation/server/current/architecture/querying-data-with-n1ql.html)
+
+```
+const { QueryConsistency } = require('feathersjs-couchbase');
+
+Service.find({
+  $consistency: QueryConsistency.NONE
+  ... 
+});
+```
+Consistency Levels:
+- NOT_BOUNDED
+- REQUEST_PLUS
+- STATEMENT_PLUS
+
+Omitting $consistency results in the default consistency of 'at_plus';
 
 ## Limitations
 
