@@ -39,6 +39,7 @@ const config = {
   bucket: bucketName, // Couchbase bucket name (REQUIRED)
   connection: bucket, // Bucket connection (REQUIRED)
   
+  separator: '::' // optional key separator (defaults to `::`)
   couchbase: couchbase, // optional couchbase dependency (OPTIONAL)
   id: 'id', // ID field to use (OPTIONAL) (defaults to `uuid`)
   paginate: app.get('paginate'), // (OPTIONAL)
