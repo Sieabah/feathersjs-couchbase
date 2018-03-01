@@ -14,6 +14,18 @@
 npm install feathersjs-couchbase --save
 ```
 
+### Warning about N1QL Injections
+
+This library only sanitizes *values* and *does not* sanitize any keys. It is a plan to build into the query builder
+a sanitization layer but for now it's open to attacks. This can be easily mitigated by validating your input and 
+excluding any keys not expected from your input.
+
+```
+{
+  "; SELECT * FROM `admin`; /*": "*/"
+}
+``` 
+
 ## Documentation
 
 ```
@@ -45,9 +57,15 @@ const { CouchService } = require('feathersjs-couchbase');
 new CouchService(config)
 ```
 
-## Missing features
+The library implements the full [feathersjs common api](https://docs.feathersjs.com/api/databases/common.html) and 
+[Query api](https://docs.feathersjs.com/api/databases/querying.html), see limitations for exceptions
 
-Does not accept **$or** statements yet.
+## Limitations
+
+- Does not accept **$or** statements. (Planned feature)
+- Subqueries are not supported
+
+##
 
 ## License
 
