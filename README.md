@@ -99,7 +99,7 @@ N1QL Consistency special parameter. [Consistency Documentation](https://develope
 const { QueryConsistency } = require('feathersjs-couchbase');
 
 Service.find({
-  $consistency: QueryConsistency.NONE
+  $consistency: QueryConsistency.NOT_BOUNDED
   ... 
 });
 ```
