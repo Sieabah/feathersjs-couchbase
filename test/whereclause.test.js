@@ -14,175 +14,237 @@ describe('Couchbase QueryBuilder Where Clauses', () => {
 
   beforeEach(() => void (Query = new QueryBuilder()));
 
-  it('Should build where query', () => {
-    const $query = {
-      roomId: {
-        $in: [2, 5]
-      }
-    };
+  describe('QueryBuild', () => {
+    it('Should build where query', () => {
+      Query.where('foo', 'eq', 'bar');
 
-    Query.interpret($query);
+      const built = Query.build();
+      const { query, values } = built;
 
-    const { query, values } = Query.build();
+      expect(query).to.be.ok;
+      expect(query).to.include('WHERE');
+      expect(query).to.include('foo');
+      expect(query).to.include('=');
+      expect(values).to.include('bar');
+    });
 
-    expect(query).to.be.ok;
-    expect(query).to.include('WHERE');
-    expect(query).to.include('IN');
-    expect(values).to.include($query.roomId.$in);
+    it('Should recast null to NULL', () => {
+      Query.where('foo', 'eq', null);
+
+      const built = Query.build();
+      const { query, values } = built;
+
+      expect(query).to.be.ok;
+      expect(query).to.include('WHERE');
+      expect(query).to.include('foo');
+      expect(query).to.include('NULL');
+      expect(values).to.have.length(0);
+    });
+
+    function testDirective (name, symbol, values = 1) {
+      it(`Should build ${name} query`, () => {
+        Query.where('foo', name, 1);
+
+        const built = Query.build();
+        const { query, values } = built;
+
+        expect(query).to.be.ok;
+        expect(query).to.include('WHERE');
+        expect(query).to.include('foo');
+        expect(query).to.include(symbol);
+        if (Array.isArray(values)) {
+          expect(values).to.deep.equal(values);
+        } else {
+          expect(values).to.include(values);
+        }
+      });
+    }
+
+    testDirective('ne', '!=');
+    testDirective('lt', '<');
+    testDirective('lte', '<=');
+    testDirective('gt', '>');
+    testDirective('gte', '>=');
+    testDirective('in', 'IN', [10, 1]);
+    testDirective('nin', 'NOT IN', [10, 1]);
+
+    it('Should not build or', () => {
+      Query.where(null, 'or', [{foo: 1}, {bar: 2}]);
+
+      expect(() => Query.build()).to.throw();
+    });
   });
 
-  it('Should represent null correctly', () => {
-    const $query = {
-      roomId: null
-    };
+  describe('QueryInspect', () => {
+    it('Should build where query', () => {
+      const $query = {
+        roomId: {
+          $in: [2, 5]
+        }
+      };
 
-    Query.interpret($query);
+      Query.interpret($query);
 
-    const { query } = Query.build();
+      const {query, values} = Query.build();
 
-    expect(query).to.be.ok;
-    expect(query).to.include('WHERE');
-    expect(query).to.include('NULL');
-  });
+      expect(query).to.be.ok;
+      expect(query).to.include('WHERE');
+      expect(query).to.include('IN');
+      expect(values).to.include($query.roomId.$in);
+    });
 
-  it('Should understand $gt query', () => {
-    const $query = {
-      roomId: {
-        $gt: 1
-      }
-    };
+    it('Should represent null correctly', () => {
+      const $query = {
+        roomId: null
+      };
 
-    Query.interpret($query);
+      Query.interpret($query);
 
-    const { query } = Query.build();
+      const {query} = Query.build();
 
-    expect(query).to.be.ok;
-    expect(query).to.include('>');
-  });
+      expect(query).to.be.ok;
+      expect(query).to.include('WHERE');
+      expect(query).to.include('NULL');
+    });
 
-  it('Should understand $gte query', () => {
-    const $query = {
-      roomId: {
-        $gte: 1
-      }
-    };
+    it('Should understand $gt query', () => {
+      const $query = {
+        roomId: {
+          $gt: 1
+        }
+      };
 
-    Query.interpret($query);
+      Query.interpret($query);
 
-    const { query } = Query.build();
+      const {query} = Query.build();
 
-    expect(query).to.be.ok;
-    expect(query).to.include('>=');
-  });
+      expect(query).to.be.ok;
+      expect(query).to.include('>');
+    });
 
-  it('Should understand $lt query', () => {
-    const $query = {
-      roomId: {
-        $lt: 1
-      }
-    };
+    it('Should understand $gte query', () => {
+      const $query = {
+        roomId: {
+          $gte: 1
+        }
+      };
 
-    Query.interpret($query);
+      Query.interpret($query);
 
-    const { query } = Query.build();
+      const {query} = Query.build();
 
-    expect(query).to.be.ok;
-    expect(query).to.include('<');
-  });
+      expect(query).to.be.ok;
+      expect(query).to.include('>=');
+    });
 
-  it('Should understand $lte query', () => {
-    const $query = {
-      roomId: {
-        $lte: 1
-      }
-    };
+    it('Should understand $lt query', () => {
+      const $query = {
+        roomId: {
+          $lt: 1
+        }
+      };
 
-    Query.interpret($query);
+      Query.interpret($query);
 
-    const { query } = Query.build();
+      const {query} = Query.build();
 
-    expect(query).to.be.ok;
-    expect(query).to.include('<=');
-  });
+      expect(query).to.be.ok;
+      expect(query).to.include('<');
+    });
 
-  it('Should understand $in Query', () => {
-    const $query = {
-      roomId: {
-        $in: [2, 5]
-      }
-    };
+    it('Should understand $lte query', () => {
+      const $query = {
+        roomId: {
+          $lte: 1
+        }
+      };
 
-    Query.interpret($query);
+      Query.interpret($query);
 
-    const { query, values } = Query.build();
+      const {query} = Query.build();
 
-    expect(query).to.be.ok;
-    expect(query).to.include('IN');
-    expect(values).to.include($query.roomId.$in);
-  });
+      expect(query).to.be.ok;
+      expect(query).to.include('<=');
+    });
 
-  it('Should understand $nin Query', () => {
-    const $query = {
-      roomId: {
-        $nin: [2, 5]
-      }
-    };
+    it('Should understand $in Query', () => {
+      const $query = {
+        roomId: {
+          $in: [2, 5]
+        }
+      };
 
-    Query.interpret($query);
+      Query.interpret($query);
 
-    const { query, values } = Query.build();
+      const {query, values} = Query.build();
 
-    expect(query).to.be.ok;
-    expect(query).to.include('NOT IN');
-    expect(values).to.include($query.roomId.$nin);
-  });
+      expect(query).to.be.ok;
+      expect(query).to.include('IN');
+      expect(values).to.include($query.roomId.$in);
+    });
 
-  it('Should understand $ne Query', () => {
-    const $query = {
-      roomId: {
-        $ne: true
-      }
-    };
+    it('Should understand $nin Query', () => {
+      const $query = {
+        roomId: {
+          $nin: [2, 5]
+        }
+      };
 
-    Query.interpret($query);
+      Query.interpret($query);
 
-    const { query } = Query.build();
+      const {query, values} = Query.build();
 
-    expect(query).to.be.ok;
-    expect(query).to.include('!=');
-  });
+      expect(query).to.be.ok;
+      expect(query).to.include('NOT IN');
+      expect(values).to.include($query.roomId.$nin);
+    });
 
-  it('Should understand attributes', () => {
-    const $query = {
-      roomId: 3
-    };
+    it('Should understand $ne Query', () => {
+      const $query = {
+        roomId: {
+          $ne: true
+        }
+      };
 
-    Query.interpret($query);
+      Query.interpret($query);
 
-    const { query, values } = Query.build();
+      const {query} = Query.build();
 
-    expect(query).to.be.ok;
-    expect(query).to.include('=');
-    expect(values).to.include($query.roomId);
-    expect(query).to.include('roomId');
-  });
+      expect(query).to.be.ok;
+      expect(query).to.include('!=');
+    });
 
-  it('Should throw error for $or', () => {
-    const $query = {
-      $or: [
-        {roomId: {$ne: true}},
-        {val: 3}
-      ]
-    };
+    it('Should understand attributes', () => {
+      const $query = {
+        roomId: 3
+      };
 
-    Query.interpret($query);
+      Query.interpret($query);
 
-    expect(() => Query.build()).to.throw();
+      const {query, values} = Query.build();
 
-    /*
-    const { query } = Query.build();
-    expect(query).to.be.ok;
-    expect(query).to.include('OR');
-    */
+      expect(query).to.be.ok;
+      expect(query).to.include('=');
+      expect(values).to.include($query.roomId);
+      expect(query).to.include('roomId');
+    });
+
+    it('Should throw error for $or', () => {
+      const $query = {
+        $or: [
+          {roomId: {$ne: true}},
+          {val: 3}
+        ]
+      };
+
+      Query.interpret($query);
+
+      const {query, values} = Query.build();
+
+      expect(query).to.be.ok;
+      expect(query).to.include('OR');
+      expect(query).to.include('!=');
+      expect(values).to.deep.equal([true, 3]);
+    });
   });
 });

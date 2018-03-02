@@ -3,15 +3,15 @@
 /* eslint no-unused-expressions: 0 */
 
 const { expect } = require('chai');
-const { FeathersQueryInterpreter } = require('../lib');
+const { QueryInterpreter } = require('../lib');
 
-const { interpret } = FeathersQueryInterpreter;
+const { interpret } = QueryInterpreter;
 const {
   Directive,
   SingleValueDirective,
   FieldValueDirective,
   SpecialDirective
-} = FeathersQueryInterpreter;
+} = QueryInterpreter;
 
 describe('FeathersJS Query Interpreter', () => {
   it('Should interpret basic equality', () => {
@@ -80,6 +80,9 @@ describe('FeathersJS Query Interpreter', () => {
     expect(component.directive).to.be.instanceOf(Directive);
     expect(component.directive.type).to.be.equal('skip');
     expect(component.value).to.be.equal(5);
+
+    const str = component.toString();
+    expect(str).to.be.equal(5);
   });
 
   it('Should interpret $select', () => {
@@ -204,10 +207,12 @@ describe('FeathersJS Query Interpreter', () => {
     const component = components[0];
     expect(component).to.be.instanceOf(SingleValueDirective);
     expect(component.directive).to.be.instanceOf(Directive);
-    expect(component.directive.type).to.be.equal('or');
+    expect(component.directive.type).to.be.equal('and');
 
-    const orComponents = component.value;
-    expect(orComponents).to.have.length(2);
+    const orComponent = component.value;
+    expect(orComponent).to.have.length(1);
+
+    const orComponents = orComponent[0].value;
 
     // For each component of $or it is possibly multiple queries `AND` together
     const firstOR = orComponents[0];
@@ -240,10 +245,26 @@ describe('FeathersJS Query Interpreter', () => {
     expect(components).to.be.ok;
     expect(components).to.have.length(2);
 
-    console.log(components);
     const special = components[0];
     expect(special).to.be.instanceOf(SpecialDirective);
     expect(special.directive.type).to.be.equal('consistency');
     expect(special.value).to.be.equal(0);
+  });
+
+  it('Should combine ands with or directives', () => {
+    const components = interpret({
+      one: 1,
+      two: 2,
+      $or: [
+        { three: 3 },
+        { four: {$ne: 4} }
+      ]
+    });
+
+    expect(components).to.be.ok;
+    expect(components).to.have.length(1);
+
+    const andComponent = components[0];
+    expect(andComponent.value).to.have.length(3);
   });
 });
