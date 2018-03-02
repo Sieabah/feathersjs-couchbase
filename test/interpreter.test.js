@@ -80,6 +80,9 @@ describe('FeathersJS Query Interpreter', () => {
     expect(component.directive).to.be.instanceOf(Directive);
     expect(component.directive.type).to.be.equal('skip');
     expect(component.value).to.be.equal(5);
+
+    const str = component.toString();
+    expect(str).to.be.equal(5);
   });
 
   it('Should interpret $select', () => {
