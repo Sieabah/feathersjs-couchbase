@@ -177,12 +177,11 @@ describe('Couchbase QueryBuilder Where Clauses', () => {
 
     Query.interpret($query);
 
-    expect(() => Query.build()).to.throw();
+    const { query, values } = Query.build();
 
-    /*
-    const { query } = Query.build();
     expect(query).to.be.ok;
     expect(query).to.include('OR');
-    */
+    expect(query).to.include('!=');
+    expect(values).to.deep.equal([true, 3]);
   });
 });

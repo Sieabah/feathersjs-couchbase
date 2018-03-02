@@ -204,10 +204,12 @@ describe('FeathersJS Query Interpreter', () => {
     const component = components[0];
     expect(component).to.be.instanceOf(SingleValueDirective);
     expect(component.directive).to.be.instanceOf(Directive);
-    expect(component.directive.type).to.be.equal('or');
+    expect(component.directive.type).to.be.equal('and');
 
-    const orComponents = component.value;
-    expect(orComponents).to.have.length(2);
+    const orComponent = component.value;
+    expect(orComponent).to.have.length(1);
+
+    const orComponents = orComponent[0].value;
 
     // For each component of $or it is possibly multiple queries `AND` together
     const firstOR = orComponents[0];
@@ -246,7 +248,7 @@ describe('FeathersJS Query Interpreter', () => {
     expect(special.value).to.be.equal(0);
   });
 
-  it('Should  directives', () => {
+  it('Should combine ands with or directives', () => {
     const components = interpret({
       one: 1,
       two: 2,
@@ -256,9 +258,10 @@ describe('FeathersJS Query Interpreter', () => {
       ]
     });
 
-    for (let comp of components) { console.log(comp); }
-
     expect(components).to.be.ok;
-    expect(components).to.have.length(2);
+    expect(components).to.have.length(1);
+
+    const andComponent = components[0];
+    expect(andComponent.value).to.have.length(3);
   });
 });
