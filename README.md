@@ -37,7 +37,7 @@ const bucket = cluster.openBucket(bucketName)
 const config = {
   name: 'users', // Name of service and key prefix (REQUIRED)
   bucket: bucketName, // Couchbase bucket name (REQUIRED)
-  connection: bucket, // Bucket connection (REQUIRED)
+  connection: bucket, // Bucket connection, or promise that resolves to connection (REQUIRED)
   
   separator: '::' // optional key separator (defaults to `::`)
   couchbase: couchbase, // optional couchbase dependency (OPTIONAL)
