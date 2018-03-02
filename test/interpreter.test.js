@@ -3,15 +3,15 @@
 /* eslint no-unused-expressions: 0 */
 
 const { expect } = require('chai');
-const { FeathersQueryInterpreter } = require('../lib');
+const { QueryInterpreter } = require('../lib');
 
-const { interpret } = FeathersQueryInterpreter;
+const { interpret } = QueryInterpreter;
 const {
   Directive,
   SingleValueDirective,
   FieldValueDirective,
   SpecialDirective
-} = FeathersQueryInterpreter;
+} = QueryInterpreter;
 
 describe('FeathersJS Query Interpreter', () => {
   it('Should interpret basic equality', () => {
