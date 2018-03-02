@@ -112,7 +112,6 @@ Omitting $consistency results in the default consistency of 'at_plus';
 
 ## Limitations
 
-- Does not accept **$or** statements. (Planned feature)
 - Subqueries are not supported
 - Only tested with feathers v3
 - $selects on Service.find calls pulls all data and removes sections locally
