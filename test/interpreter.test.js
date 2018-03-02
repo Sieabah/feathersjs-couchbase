@@ -240,10 +240,25 @@ describe('FeathersJS Query Interpreter', () => {
     expect(components).to.be.ok;
     expect(components).to.have.length(2);
 
-    console.log(components);
     const special = components[0];
     expect(special).to.be.instanceOf(SpecialDirective);
     expect(special.directive.type).to.be.equal('consistency');
     expect(special.value).to.be.equal(0);
+  });
+
+  it('Should  directives', () => {
+    const components = interpret({
+      one: 1,
+      two: 2,
+      $or: [
+        { three: 3 },
+        { four: {$ne: 4} }
+      ]
+    });
+
+    for (let comp of components) { console.log(comp); }
+
+    expect(components).to.be.ok;
+    expect(components).to.have.length(2);
   });
 });
