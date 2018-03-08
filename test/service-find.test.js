@@ -6,7 +6,7 @@ const expect = require('chai').expect;
 // const sinon = require('sinon');
 
 const Promise = require('bluebird');
-// const { BadRequest, NotFound } = require('@feathersjs/errors');
+const { BadRequest } = require('@feathersjs/errors');
 const couchbase = require('couchbase-promises').Mock;
 const { CouchService, QueryConsistency } = require('../lib');
 const R = require('ramda');
@@ -56,6 +56,22 @@ describe('Couchbase Adapter (find)', function () {
     })
       .then((res) => {
         expect(res).to.be.ok;
+      });
+  });
+
+  it('Should error when no params are passed', () => {
+    return Service.find()
+      .then(() => { throw new Error('Should not happen'); })
+      .catch((err) => {
+        expect(err).to.be.instanceOf(BadRequest);
+      });
+  });
+
+  it('Should error when no query is passed', () => {
+    return Service.find({})
+      .then(() => { throw new Error('Should not happen'); })
+      .catch((err) => {
+        expect(err).to.be.instanceOf(BadRequest);
       });
   });
 
