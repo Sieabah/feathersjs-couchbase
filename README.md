@@ -14,6 +14,12 @@
 npm install feathersjs-couchbase --save
 ```
 
+## Changelog
+
+v2.0.0:
+
+- Change update to replace entire document instead of being an alias of patch. 
+
 ### Warning about N1QL Injections
 
 This library only sanitizes *values* and *does not* sanitize any keys. It is a plan to build into the query builder
