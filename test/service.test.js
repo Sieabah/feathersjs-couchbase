@@ -153,7 +153,7 @@ describe('Couchbase Adapter', function () {
         const reversed = data.foo.split().reverse().join('');
         return Service.update(data.uuid, { foo: reversed })
           .then((el) => {
-            expect(el.id).to.equal(data.id);
+            expect(el.id).to.equal(undefined);
             expect(el.foo).to.equal(reversed);
           });
       });
