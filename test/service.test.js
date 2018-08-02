@@ -137,7 +137,7 @@ describe('Couchbase Adapter', function () {
         expect(el.id).to.equal(data.id);
         expect(el.foo).to.equal(data.foo);
 
-        return Service.remove(data.uuid)
+        return Service.remove(data.uuid, {$return: false})
           .then((result) => {
             expect(el.id).to.not.equal(result.id);
           });
@@ -154,7 +154,7 @@ describe('Couchbase Adapter', function () {
         expect(el.id).to.equal(data.id);
         expect(el.foo).to.equal(data.foo);
 
-        return Service.remove(data.uuid, {$return: true})
+        return Service.remove(data.uuid)
           .then((result) => {
             expect(el.id).to.equal(result.id);
             expect(el.foo).to.equal(result.foo);

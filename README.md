@@ -122,9 +122,8 @@ Consistency Levels:
 Omitting $consistency results in the default consistency of 'at_plus';
 
 ##### $return (_only_ valid on Service.remove)
-Due to the nature of removing items, you may want to preserve what you deleted for
-event propagation. Calling `Service.remove(..., { $return: true })` will remove the 
-and return the removed item instead of the CAS value.
+Due to the nature of removing items, you may want to retrieve the CAS value. Calling `Service.remove(..., { $return: true })` will remove the 
+and return the removed the CAS value instead of the original object.
 
 ## Limitations
 
