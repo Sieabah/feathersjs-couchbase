@@ -127,6 +127,41 @@ describe('Couchbase Adapter', function () {
       });
   });
 
+  it('Should remove and return CAS', () => {
+    const data = {
+      id: 'foo',
+      foo: 'bar'
+    };
+    return Service.create(data)
+      .then((el) => {
+        expect(el.id).to.equal(data.id);
+        expect(el.foo).to.equal(data.foo);
+
+        return Service.remove(data.uuid)
+          .then((result) => {
+            expect(el.id).to.not.equal(result.id);
+          });
+      });
+  });
+
+  it('Should remove and return original value', () => {
+    const data = {
+      id: 'foo',
+      foo: 'bar'
+    };
+    return Service.create(data)
+      .then((el) => {
+        expect(el.id).to.equal(data.id);
+        expect(el.foo).to.equal(data.foo);
+
+        return Service.remove(data.uuid, {$return: true})
+          .then((result) => {
+            expect(el.id).to.equal(result.id);
+            expect(el.foo).to.equal(result.foo);
+          });
+      });
+  });
+
   it('Should patch data', () => {
     const data = {
       id: 'foo',
