@@ -16,6 +16,11 @@ npm install feathersjs-couchbase --save
 
 ## Changelog
 
+v2.1.0:
+
+- Added special $return directive to params on remove service calls. You should specify `$return = false` if you want to
+be forward compatible with newer versions of feathersjs-couchbase
+
 v2.0.0:
 
 - Change update to replace entire document instead of being an alias of patch. 
