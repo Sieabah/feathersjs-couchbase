@@ -1,7 +1,7 @@
 {
   "name": "feathersjs-couchbase",
   "description": "FeathersJS DB adapter for couchbase",
-  "version": "2.0.2",
+  "version": "2.1.0",
   "homepage": "https://github.com/Sieabah/feathers-couchbase",
   "main": "lib/",
   "keywords": [
