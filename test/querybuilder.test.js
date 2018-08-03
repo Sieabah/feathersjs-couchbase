@@ -140,7 +140,6 @@ describe('Couchbase QueryBuilder', () => {
   });
 
   it('Should handle complex where', () => {
-    console.log('COMPLEX WHERE');
     Query.interpret({
       room: {
         uuid: '11111111',
@@ -170,7 +169,7 @@ describe('Couchbase QueryBuilder', () => {
     });
 
     const { query } = Query.build();
-    
+
     expect(query).to.be.ok;
     expect(query).to.include('`room.uuid`');
     expect(query).to.include('`room.subobj.third`');

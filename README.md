@@ -130,9 +130,34 @@ and return the removed the CAS value instead of the original object.
 - Subqueries are not supported
 - Only tested with feathers v3
 - $selects on Service.find calls pulls all data and removes sections locally
+- Does not _validate_ queries, a query with a directive and value results in 
+an invalid query (`{ thing: { one: 1, $lt: 2 } }`) --> `thing.one = 1 AND thing < 2`
 
 ## License
 
 Copyright (c) 2018
 
 Licensed under the [MIT license](LICENSE).
+
+## Contributing
+
+### Definitions
+
+- Directives - A directive as used in this project is a special query definition. An
+example of a directive would be $in, $limit, or $skip.
+
+- SingleValueDirective and FieldValueDirective are both directives (usually equality) 
+that relate a singular value or a mapped field. A mapped field can either be a directive 
+itself or a subvalue of a parent object.
+```
+query: {
+  //Results in a FieldValueDirective that builds `top < $1`
+  top: {
+    $lt: 1
+  },
+  //Results in a FieldValueDirective that builds `sub.one = $2`
+  sub: {
+    one: 1
+  }
+}
+```
