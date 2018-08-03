@@ -139,6 +139,46 @@ describe('Couchbase QueryBuilder', () => {
     expect(query).to.include(1);
   });
 
+  it('Should handle complex where', () => {
+    console.log('COMPLEX WHERE');
+    Query.interpret({
+      room: {
+        uuid: '11111111',
+        subobj: {
+          third: 5,
+          six: 6,
+          super: {
+            nested: {
+              results: {
+                value1: 1,
+                value2: 2
+              }
+            }
+          }
+        },
+        name: '22222222',
+        owner: '333333333',
+        private: false,
+        scenes: [
+          'one',
+          'two'
+        ],
+        volume: 1.0,
+        _type: 'rooms',
+        updatedAt: '77777777'
+      }
+    });
+
+    const { query } = Query.build();
+    
+    expect(query).to.be.ok;
+    expect(query).to.include('`room.uuid`');
+    expect(query).to.include('`room.subobj.third`');
+    expect(query).to.include('`room.subobj.six`');
+    expect(query).to.include('`room.subobj.super.nested.results.value1`');
+    expect(query).to.include('`room.subobj.super.nested.results.value2`');
+  });
+
   it('Should interpret limits', () => {
     Query.interpret({
       $limit: 1
