@@ -12,33 +12,7 @@
 
 ```
 npm install feathersjs-couchbase --save
-```
-
-## Changelog
-
-v2.3.0:
-
-- Support for nested subobjects added. The following query results in `one.two = 1` 
-```
-query: {
-  one: {
-    two: 1
-  }
-}
-```
-
-v2.2.0:
-
-- On service.remove the original object is returned by default.
-
-v2.1.0:
-
-- Added special $return directive to params on remove service calls. You should specify `$return = false` if you want to
-be forward compatible with newer versions of feathersjs-couchbase
-
-v2.0.0:
-
-- Change update to replace entire document instead of being an alias of patch. 
+``` 
 
 ### Warning about N1QL Injections
 
@@ -176,3 +150,33 @@ query: {
   }
 }
 ```
+
+## Changelog
+
+v2.4.0:
+
+- Adds multi-access support to create function
+
+v2.3.0:
+
+- Support for nested subobjects added. The following query results in `one.two = 1` 
+```
+query: {
+  one: {
+    two: 1
+  }
+}
+```
+
+v2.2.0:
+
+- On service.remove the original object is returned by default.
+
+v2.1.0:
+
+- Added special $return directive to params on remove service calls. You should specify `$return = false` if you want to
+be forward compatible with newer versions of feathersjs-couchbase
+
+v2.0.0:
+
+- Change update to replace entire document instead of being an alias of patch.
