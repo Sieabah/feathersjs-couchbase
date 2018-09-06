@@ -119,10 +119,7 @@ describe('Couchbase Adapter', function () {
       foo: 'bar2'
     };
 
-    const _service = new CouchService({
-      ...ServiceConfig,
-      multi: true
-    });
+    const _service = new CouchService(Object.assign({multi: true}, ServiceConfig));
 
     return _service.create([data1, data2])
       .then((results) => {
@@ -141,10 +138,7 @@ describe('Couchbase Adapter', function () {
       foo: 'bar2'
     };
 
-    const _service = new CouchService({
-      ...ServiceConfig,
-      multi: ['create']
-    });
+    const _service = new CouchService(Object.assign({multi: ['create']}, ServiceConfig));
 
     return _service.create([data1, data2])
       .then((results) => {
@@ -210,10 +204,7 @@ describe('Couchbase Adapter', function () {
       foo: 'bar'
     };
 
-    const _service = new CouchService({
-      ...ServiceConfig,
-      multi: ['create', 'remove']
-    });
+    const _service = new CouchService(Object.assign({multi: ['create', 'remove']}, ServiceConfig));
 
     return _service.create(data)
       .then(() => {
@@ -307,10 +298,7 @@ describe('Couchbase Adapter', function () {
       });
     }
 
-    const _service = new CouchService({
-      ...ServiceConfig,
-      multi: ['create', 'patch']
-    });
+    const _service = new CouchService(Object.assign({multi: ['create', 'patch']}, ServiceConfig));
 
     return _service.create(elements)
       .then(() => {
@@ -331,10 +319,7 @@ describe('Couchbase Adapter', function () {
       });
     }
 
-    const _service = new CouchService({
-      ...ServiceConfig,
-      multi: ['create', 'patch']
-    });
+    const _service = new CouchService(Object.assign({multi: ['create', 'patch']}, ServiceConfig));
 
     return _service.create(elements)
       .then(() => {
