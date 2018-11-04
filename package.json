@@ -52,19 +52,19 @@
     "couchbase-promises": "^4.x"
   },
   "dependencies": {
-    "@feathersjs/errors": "^3.3.0",
-    "bluebird": "^3.5.1",
-    "couchbase": "^2.4.3",
-    "debug": "^3.1.0",
+    "@feathersjs/errors": "^3.3.4",
+    "bluebird": "^3.5.2",
+    "couchbase": "^2.6.0",
+    "debug": "^4.1.0",
     "ramda": "^0.25.0",
-    "uuid": "^3.2.1"
+    "uuid": "^3.3.2"
   },
   "devDependencies": {
-    "chai": "^4.1.2",
+    "chai": "^4.2.0",
     "couchbase-promises": "^4.3.0",
     "istanbul": "^1.1.0-alpha.1",
     "mocha": "^5.2.0",
-    "semistandard": "^12.0.0",
-    "sinon": "^6.0.0"
+    "semistandard": "^12.0.1",
+    "sinon": "^7.1.1"
   }
 }
