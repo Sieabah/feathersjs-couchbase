@@ -183,6 +183,35 @@ describe('Couchbase QueryBuilder Where Clauses', () => {
       expect(values).to.include($query.roomId.$in);
     });
 
+    it('Should understand empty $in Query', () => {
+      const $query = {
+        roomId: {
+          $in: []
+        }
+      };
+
+      Query.interpret($query);
+
+      const {query, values} = Query.build();
+
+      expect(query).to.be.ok;
+      expect(query).to.include('IN');
+      expect(values).to.include($query.roomId.$in);
+    });
+
+    it('Should reject bad root directives Query', () => {
+      const badDirectives = ['lt', 'lte', 'gt', 'gte', 'ne', 'in', 'nin', 'eq'];
+
+      for (let directive of badDirectives) {
+        expect(() => {
+          const $query = {};
+          $query[`$${directive}`] = [];
+
+          Query.interpret($query);
+        }).to.throw();
+      }
+    });
+
     it('Should understand $nin Query', () => {
       const $query = {
         roomId: {
