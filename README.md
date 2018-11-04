@@ -17,7 +17,7 @@ npm install feathersjs-couchbase --save
 ### Warning about N1QL Injections
 
 This library only sanitizes *values* and *does not* sanitize any keys. It is a plan to build into the query builder
-a sanitization layer but for now it's open to attacks. This can be easily mitigated by validating your input and 
+a sanitization layer but for now it is open to attacks. This can be easily mitigated by validating your input and 
 excluding any keys not expected from your input.
 
 ```
@@ -119,7 +119,7 @@ and return the removed the CAS value instead of the original object.
 - Subqueries are not supported
 - Only tested with feathers v3
 - $selects on Service.find calls pulls all data and removes sections locally
-- Does not _validate_ queries, a query with a directive and value results in 
+- Does not _validate_ query logic, a query with a directive and value results in 
 an invalid query (`{ thing: { one: 1, $lt: 2 } }`) --> `thing.one = 1 AND thing < 2`
 
 ## License
@@ -152,6 +152,10 @@ query: {
 ```
 
 ## Changelog
+
+v2.5.0:
+
+- Error when incorrect query directives are provided at root level
 
 v2.4.0:
 
