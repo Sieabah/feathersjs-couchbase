@@ -93,14 +93,16 @@ The library implements the full [feathersjs common api](https://docs.feathersjs.
 #### Additional API
 
 ##### $consistency (_only_ valid on Service.find)
-N1QL Consistency special parameter. [Consistency Documentation](https://developer.couchbase.com/documentation/server/current/architecture/querying-data-with-n1ql.html)
+N1QL Consistency special parameter. [Consistency Documentation](https://docs.couchbase.com/server/5.5/indexes/performance-consistency.html)
 
 ```
 const { QueryConsistency } = require('feathersjs-couchbase');
 
 Service.find({
-  $consistency: QueryConsistency.NOT_BOUNDED
-  ... 
+  query: {
+    $consistency: QueryConsistency.NOT_BOUNDED
+    ... 
+  }
 });
 ```
 Consistency Levels:
@@ -112,7 +114,7 @@ Omitting $consistency results in the default consistency of 'at_plus';
 
 ##### $return (_only_ valid on Service.remove)
 Due to the nature of removing items, you may want to retrieve the CAS value. Calling `Service.remove(..., { $return: true })` will remove the 
-and return the removed the CAS value instead of the original object.
+entity and return the removed CAS value instead of the original object.
 
 ## Limitations
 
