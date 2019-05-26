@@ -155,6 +155,11 @@ query: {
 
 ## Changelog
 
+v3.0.1:
+
+- Fix service.find() queries
+- Update ramda
+
 v3.0.0:
 
 - Remove dependency on unmaintained couchbase-promise library (couchbase > request > @hapi/hawk)
@@ -181,12 +186,3 @@ query: {
 v2.2.0:
 
 - On service.remove the original object is returned by default.
-
-v2.1.0:
-
-- Added special $return directive to params on remove service calls. You should specify `$return = false` if you want to
-be forward compatible with newer versions of feathersjs-couchbase
-
-v2.0.0:
-
-- Change update to replace entire document instead of being an alias of patch.
