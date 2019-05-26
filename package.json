@@ -55,7 +55,7 @@
     "bluebird": "^3.5.2",
     "couchbase": "^2.6.0",
     "debug": "^4.1.0",
-    "ramda": "^0.25.0",
+    "ramda": "^0.26.1",
     "uuid": "^3.3.2"
   },
   "devDependencies": {
