@@ -40,9 +40,9 @@ describe('Couchbase Adapter (find)', function () {
   const Bucket = Cluster.openBucket(bucketName, bucketName);
 
   const responseQueue = [];
-  Bucket.query = (a, b, callback) => {
+  Bucket.query = (_, __, callback) => {
     if (responseQueue.length > 0) {
-      return void callback(null, responseQueue.pop());
+      return void callback(null, ...responseQueue.pop());
     }
 
     callback(new Error('TEST-ERROR :: No data in queue'), null);
