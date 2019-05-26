@@ -155,6 +155,10 @@ query: {
 
 ## Changelog
 
+v3.0.0:
+
+- Remove dependency on unmaintained couchbase-promise library (couchbase > request > @hapi/hawk)
+
 v2.5.0:
 
 - Error when incorrect query directives are provided at root level
