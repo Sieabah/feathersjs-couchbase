@@ -29,7 +29,7 @@ excluding any keys not expected from your input.
 ## Documentation
 
 ```
-const couchbase = require('couchbase-promises')
+const couchbase = require('couchbase')
 const cluster = new couchbase.Cluster('couchbase://127.0.0.1')
 const bucketName = 'default';
 const bucket = cluster.openBucket(bucketName)

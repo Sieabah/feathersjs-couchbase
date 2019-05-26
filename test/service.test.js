@@ -7,7 +7,7 @@ const sinon = require('sinon');
 
 // const Promise = require('bluebird');
 const { BadRequest, NotFound, NotImplemented } = require('@feathersjs/errors');
-const couchbase = require('couchbase-promises').Mock;
+const couchbase = require('couchbase').Mock;
 const createCouchService = require('../lib');
 const { CouchService } = createCouchService;
 

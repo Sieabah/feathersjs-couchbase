@@ -5,11 +5,34 @@
 const expect = require('chai').expect;
 // const sinon = require('sinon');
 
-const Promise = require('bluebird');
 const { BadRequest } = require('@feathersjs/errors');
-const couchbase = require('couchbase-promises').Mock;
+const couchbase = require('couchbase');
 const { CouchService, QueryConsistency } = require('../lib');
 const R = require('ramda');
+
+function mockN1QL (couchbaseLib) {
+  return new Proxy(couchbaseLib, {
+    get (obj, prop) {
+      switch (prop) {
+        case 'N1qlQuery': return {
+          Consistency: {
+            NOT_BOUNDED: 'NOT_BOUNDED',
+            REQUEST_PLUS: 'REQUEST_PLUS',
+            STATEMENT_PLUS: 'STATEMENT_PLUS'
+          },
+          fromString (str) {
+            return {
+              consistency (value) {},
+              readonly (readonly) {}
+            };
+          }
+        };
+      }
+
+      return obj[prop];
+    }
+  });
+}
 
 describe('Couchbase Adapter (find)', function () {
   const bucketName = 'testbucket';
@@ -17,11 +40,13 @@ describe('Couchbase Adapter (find)', function () {
   const Bucket = Cluster.openBucket(bucketName, bucketName);
 
   const responseQueue = [];
-  Bucket.queryAsync = () => new Promise((resolve, reject) => {
-    if (responseQueue.length > 0) { return void resolve(responseQueue.pop()); }
+  Bucket.query = (a, b, callback) => {
+    if (responseQueue.length > 0) {
+      return void callback(null, responseQueue.pop());
+    }
 
-    reject(new Error('TEST-ERROR :: No data in queue'));
-  });
+    callback(new Error('TEST-ERROR :: No data in queue'), null);
+  };
 
   function addData (data) {
     responseQueue.push(data);
@@ -35,7 +60,7 @@ describe('Couchbase Adapter (find)', function () {
   beforeEach(() => {
     responseQueue.length = 0;
     Service = new CouchService({
-      couchbase: couchbase,
+      couchbase: mockN1QL(couchbase.Mock),
       bucket: 'testbucket',
       connection: Bucket,
       name: 'users',
@@ -77,7 +102,7 @@ describe('Couchbase Adapter (find)', function () {
 
   it('Should paginate', () => {
     Service = new CouchService({
-      couchbase: couchbase,
+      couchbase: mockN1QL(couchbase.Mock),
       bucket: 'testbucket',
       connection: Bucket,
       name: 'users',
