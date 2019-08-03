@@ -119,8 +119,8 @@ describe('FeathersJS Query Interpreter', () => {
     const sortComponent = component.value;
     expect(sortComponent).to.have.length(2);
     expect(sortComponent).to.deep.equal([
-      {field: 'sorted', value: 1},
-      {field: 'downsort', value: -1}
+      { field: 'sorted', value: 1 },
+      { field: 'downsort', value: -1 }
     ]);
   });
 
@@ -257,7 +257,7 @@ describe('FeathersJS Query Interpreter', () => {
       two: 2,
       $or: [
         { three: 3 },
-        { four: {$ne: 4} }
+        { four: { $ne: 4 } }
       ]
     });
 

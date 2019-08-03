@@ -69,7 +69,7 @@ describe('Couchbase QueryBuilder Where Clauses', () => {
     testDirective('nin', 'NOT IN', [10, 1]);
 
     it('Should not build or', () => {
-      Query.where(null, 'or', [{foo: 1}, {bar: 2}]);
+      Query.where(null, 'or', [{ foo: 1 }, { bar: 2 }]);
 
       expect(() => Query.build()).to.throw();
     });
@@ -85,7 +85,7 @@ describe('Couchbase QueryBuilder Where Clauses', () => {
 
       Query.interpret($query);
 
-      const {query, values} = Query.build();
+      const { query, values } = Query.build();
 
       expect(query).to.be.ok;
       expect(query).to.include('WHERE');
@@ -100,7 +100,7 @@ describe('Couchbase QueryBuilder Where Clauses', () => {
 
       Query.interpret($query);
 
-      const {query} = Query.build();
+      const { query } = Query.build();
 
       expect(query).to.be.ok;
       expect(query).to.include('WHERE');
@@ -116,7 +116,7 @@ describe('Couchbase QueryBuilder Where Clauses', () => {
 
       Query.interpret($query);
 
-      const {query} = Query.build();
+      const { query } = Query.build();
 
       expect(query).to.be.ok;
       expect(query).to.include('>');
@@ -131,7 +131,7 @@ describe('Couchbase QueryBuilder Where Clauses', () => {
 
       Query.interpret($query);
 
-      const {query} = Query.build();
+      const { query } = Query.build();
 
       expect(query).to.be.ok;
       expect(query).to.include('>=');
@@ -146,7 +146,7 @@ describe('Couchbase QueryBuilder Where Clauses', () => {
 
       Query.interpret($query);
 
-      const {query} = Query.build();
+      const { query } = Query.build();
 
       expect(query).to.be.ok;
       expect(query).to.include('<');
@@ -161,7 +161,7 @@ describe('Couchbase QueryBuilder Where Clauses', () => {
 
       Query.interpret($query);
 
-      const {query} = Query.build();
+      const { query } = Query.build();
 
       expect(query).to.be.ok;
       expect(query).to.include('<=');
@@ -176,7 +176,7 @@ describe('Couchbase QueryBuilder Where Clauses', () => {
 
       Query.interpret($query);
 
-      const {query, values} = Query.build();
+      const { query, values } = Query.build();
 
       expect(query).to.be.ok;
       expect(query).to.include('IN');
@@ -192,7 +192,7 @@ describe('Couchbase QueryBuilder Where Clauses', () => {
 
       Query.interpret($query);
 
-      const {query, values} = Query.build();
+      const { query, values } = Query.build();
 
       expect(query).to.be.ok;
       expect(query).to.include('IN');
@@ -221,7 +221,7 @@ describe('Couchbase QueryBuilder Where Clauses', () => {
 
       Query.interpret($query);
 
-      const {query, values} = Query.build();
+      const { query, values } = Query.build();
 
       expect(query).to.be.ok;
       expect(query).to.include('NOT IN');
@@ -237,7 +237,7 @@ describe('Couchbase QueryBuilder Where Clauses', () => {
 
       Query.interpret($query);
 
-      const {query} = Query.build();
+      const { query } = Query.build();
 
       expect(query).to.be.ok;
       expect(query).to.include('!=');
@@ -250,7 +250,7 @@ describe('Couchbase QueryBuilder Where Clauses', () => {
 
       Query.interpret($query);
 
-      const {query, values} = Query.build();
+      const { query, values } = Query.build();
 
       expect(query).to.be.ok;
       expect(query).to.include('=');
@@ -261,14 +261,14 @@ describe('Couchbase QueryBuilder Where Clauses', () => {
     it('Should throw error for $or', () => {
       const $query = {
         $or: [
-          {roomId: {$ne: true}},
-          {val: 3}
+          { roomId: { $ne: true } },
+          { val: 3 }
         ]
       };
 
       Query.interpret($query);
 
-      const {query, values} = Query.build();
+      const { query, values } = Query.build();
 
       expect(query).to.be.ok;
       expect(query).to.include('OR');

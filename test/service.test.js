@@ -119,7 +119,7 @@ describe('Couchbase Adapter', function () {
       foo: 'bar2'
     };
 
-    const _service = new CouchService(Object.assign({multi: true}, ServiceConfig));
+    const _service = new CouchService(Object.assign({ multi: true }, ServiceConfig));
 
     return _service.create([data1, data2])
       .then((results) => {
@@ -138,7 +138,7 @@ describe('Couchbase Adapter', function () {
       foo: 'bar2'
     };
 
-    const _service = new CouchService(Object.assign({multi: ['create']}, ServiceConfig));
+    const _service = new CouchService(Object.assign({ multi: ['create'] }, ServiceConfig));
 
     return _service.create([data1, data2])
       .then((results) => {
@@ -204,7 +204,7 @@ describe('Couchbase Adapter', function () {
       foo: 'bar'
     };
 
-    const _service = new CouchService(Object.assign({multi: ['create', 'remove']}, ServiceConfig));
+    const _service = new CouchService(Object.assign({ multi: ['create', 'remove'] }, ServiceConfig));
 
     return _service.create(data)
       .then(() => {
@@ -228,7 +228,7 @@ describe('Couchbase Adapter', function () {
         expect(el.id).to.equal(data.id);
         expect(el.foo).to.equal(data.foo);
 
-        return Service.remove(data.uuid, {$return: false})
+        return Service.remove(data.uuid, { $return: false })
           .then((result) => {
             expect(el.id).to.not.equal(result.id);
           });
@@ -298,7 +298,7 @@ describe('Couchbase Adapter', function () {
       });
     }
 
-    const _service = new CouchService(Object.assign({multi: ['create', 'patch']}, ServiceConfig));
+    const _service = new CouchService(Object.assign({ multi: ['create', 'patch'] }, ServiceConfig));
 
     return _service.create(elements)
       .then(() => {
@@ -319,7 +319,7 @@ describe('Couchbase Adapter', function () {
       });
     }
 
-    const _service = new CouchService(Object.assign({multi: ['create', 'patch']}, ServiceConfig));
+    const _service = new CouchService(Object.assign({ multi: ['create', 'patch'] }, ServiceConfig));
 
     return _service.create(elements)
       .then(() => {
