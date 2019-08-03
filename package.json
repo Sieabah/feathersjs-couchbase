@@ -51,10 +51,10 @@
     "couchbase": "^2.x"
   },
   "dependencies": {
-    "@feathersjs/errors": "^3.3.4",
-    "bluebird": "^3.5.2",
-    "couchbase": "^2.6.0",
-    "debug": "^4.1.0",
+    "@feathersjs/errors": "^3.3.6",
+    "bluebird": "^3.5.5",
+    "couchbase": "^2.6.5",
+    "debug": "^4.1.1",
     "ramda": "^0.26.1",
     "uuid": "^3.3.2"
   },
@@ -62,7 +62,7 @@
     "chai": "^4.2.0",
     "istanbul": "^1.1.0-alpha.1",
     "mocha": "^5.2.0",
-    "semistandard": "^12.0.1",
+    "semistandard": "^13.0.1",
     "sinon": "^7.1.1"
   }
 }
