@@ -1,4 +1,4 @@
-# feathersjs-couchbase
+# feathersjs-couchbase DEPRECATED
 
 [![Build Status](https://travis-ci.org/Sieabah/feathersjs-couchbase.svg?branch=master)](https://travis-ci.org/Sieabah/feathersjs-couchbase)
 [![Maintainability](https://api.codeclimate.com/v1/badges/ac6cb7962df1a5a5958a/maintainability)](https://codeclimate.com/github/Sieabah/feathersjs-couchbase/maintainability)
@@ -7,6 +7,8 @@
 [![Download Status](https://img.shields.io/npm/dt/feathersjs-couchbase.svg?style=flat-square)](https://www.npmjs.com/package/feathersjs-couchbase)
 
 > FeathersJS DB adapter for couchbase
+
+# Project is deprecated, will not maintain any further
 
 ## Installation
 
